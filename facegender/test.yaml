@@ -1,0 +1,17 @@
+trainer:
+  accelerator: gpu
+  limit_train_batches: 69
+# the argument passed to `trainer.test(ckpt_path=...)`
+ckpt_path: "/raid/home/umoya/jobout/face/lightning_logs/version_7/checkpoints/mono.ckpt"
+data:
+  input_size: 90
+  path: /raid/home/umoya/data/gender_rev2/
+  batch_size: 64
+  num_workers: 10  
+model:
+  learning_rate: 0.01 
+  momentum: 0.9
+  weight_decay: 1e-4
+  mtype: resnet18
+  num_classes: 2
+    

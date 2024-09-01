@@ -1,0 +1,36 @@
+trainer:
+  accelerator: gpu
+  num_nodes: 1
+  max_epochs: 70
+  precision: 32
+  profiler: simple  
+  enable_model_summary: True  
+  callbacks:
+    - class_path: pytorch_lightning.callbacks.ModelCheckpoint
+      init_args:
+        #dirpath: '/raid/home/umoya/jobout/face/lightning_logs/${SLURM_JOB_ID}/'
+        filename: mono
+        monitor: val_avg_acc
+        save_weights_only: True
+        mode: max
+        verbose: True
+  logger:
+    - class_path: pytorch_lightning.loggers.TensorBoardLogger
+      init_args:
+        save_dir: /raid/home/umoya/jobout/face/
+        #version: version
+        #prefix: ${SLURM_JOB_ID}  
+        log_graph: True  
+model:
+  learning_rate: 0.01 
+  momentum: 0.9
+  weight_decay: 1e-4
+  mtype: monoresnet18
+  num_classes: 2
+
+  
+data:
+  input_size: 90
+  path: /raid/home/umoya/data/gender_rev2
+  batch_size: 64
+  num_workers: 10
